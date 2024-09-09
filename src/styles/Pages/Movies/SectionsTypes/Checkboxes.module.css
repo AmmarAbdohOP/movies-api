@@ -1,0 +1,23 @@
+.option {
+  color: #333;
+  display: flex;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.option input[type="checkbox"] {
+  cursor: pointer;
+  height: 16px;
+  margin-right: 8px;
+  width: 16px;
+}
+
+.option label {
+  cursor: pointer;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+}

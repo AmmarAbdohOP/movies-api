@@ -1,0 +1,35 @@
+.filter_section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.movies_header {
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.movies_page {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.movies_wrapper {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  max-width: var(--maxPrimaryPageWidth);
+  padding: 30px 63px;
+  width: 100%;
+}
+
+.popular_movies {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
+  margin-top: 50px;
+}

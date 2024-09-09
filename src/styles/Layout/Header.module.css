@@ -1,0 +1,68 @@
+.header {
+  background-color: rgba(var(--tmdbDarkBlue), 1);
+  display: flex;
+  height: 64px;
+  justify-content: center;
+  width: 100%;
+  z-index: 50;
+}
+
+.header_link {
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.header_wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-width: var(--maxPrimaryPageWidth);
+  padding: 0 40px;
+  width: 100%;
+}
+
+.language_button {
+  border: 1px white solid;
+  border-radius: 3px;
+  color: white;
+  font-size: 0.9em;
+  padding: 3px 5px;
+}
+
+.language_button:hover {
+  background-color: white;
+  color: rgb(3, 37, 65);
+}
+
+.nav_links {
+  align-items: center;
+  display: flex;
+  gap: 25px;
+}
+
+.nav_main,
+.nav_settings {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.nav_main {
+  justify-content: flex-start;
+}
+
+.nav_settings {
+  justify-content: flex-end;
+}
+
+.profile_picture {
+  align-items: center;
+  background-color: rgba(var(--accountSilver), 1);
+  border-radius: 15px;
+  display: flex;
+  font-size: 0.9em;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
+}

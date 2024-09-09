@@ -1,0 +1,56 @@
+.movie_providers {
+  margin-top: 15px;
+}
+
+.providers_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.providers_list li {
+  box-sizing: border-box;
+  flex: 1 1 calc(25% - 10px);
+  max-width: calc(25% - 10px);
+  position: relative;
+}
+
+.provider_logo {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.provider_logo_item {
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.provider_logo_item:hover .overlay {
+  opacity: 0.8;
+}
+
+.isSelected {
+  position: relative;
+}
+
+.isSelected .overlay {
+  opacity: 0.8;
+}
+
+.overlay {
+  background-color: rgba(1, 180, 228, 1);
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}

@@ -1,0 +1,33 @@
+.select {
+  -ms-flex-flow: row nowrap;
+  background-color: #e4e7eb;
+  border-color: #e4e7eb;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  color: #212529;
+  cursor: pointer;
+  display: flex;
+  flex-flow: row nowrap;
+  line-height: 1.5;
+  outline: 0;
+  padding: 8px;
+  position: relative;
+  text-align: left;
+  white-space: nowrap;
+  width: 100%;
+
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.select:hover {
+  background-color: #ced3db;
+  border-color: #c7cdd5;
+  color: #212529;
+}
+
+.select:active {
+  background-color: white;
+}

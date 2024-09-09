@@ -1,0 +1,70 @@
+.CountriesDropDown {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+}
+
+.dropdown {
+  background-color: white;
+  border: 1px solid #e4e7eb;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  left: 0;
+  list-style-type: none;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.flag {
+  height: 12px;
+  margin-right: 8px;
+  width: 16px;
+}
+
+.option {
+  align-items: center;
+  display: flex;
+  padding: 8px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.option:hover {
+  background-color: #ced3db;
+}
+
+.selected {
+  -ms-flex-flow: row nowrap;
+  align-items: center;
+  background-color: #e4e7eb;
+  border-color: #e4e7eb;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  color: #212529;
+  cursor: pointer;
+  display: flex;
+  flex-flow: row nowrap;
+  line-height: 1.5;
+  outline: 0;
+  padding: 8px;
+  text-align: left;
+  white-space: nowrap;
+  width: 100%;
+
+  transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.selected:active {
+  background-color: white;
+}
+
+.selected:hover {
+  background-color: #ced3db;
+  border-color: #c7cdd5;
+}
