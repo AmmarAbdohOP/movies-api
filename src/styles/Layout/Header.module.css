@@ -12,13 +12,13 @@
   cursor: pointer;
   font-weight: bold;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .header_wrapper {
   display: flex;
   justify-content: space-between;
   max-width: var(--maxPrimaryPageWidth);
-  padding: 0 40px;
   width: 100%;
 }
 
