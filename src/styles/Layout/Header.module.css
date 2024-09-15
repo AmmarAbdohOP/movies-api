@@ -10,7 +10,7 @@
 .header_link {
   color: white;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -19,7 +19,9 @@
   display: flex;
   justify-content: space-between;
   max-width: var(--maxPrimaryPageWidth);
+  padding: 30px;
   width: 100%;
+  gap: 20px
 }
 
 .language_button {
@@ -49,6 +51,7 @@
 }
 
 .nav_main {
+  gap: 25px;
   justify-content: flex-start;
 }
 

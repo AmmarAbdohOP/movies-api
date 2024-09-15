@@ -12,8 +12,8 @@ const Header = () => {
             className={styles.logo}
             src="/logo.svg"
             alt="logo"
-            width={200}
-            height={20}
+            width={160}
+            height={30}
           ></Image>
           <ul className={styles.nav_links}>
             <li>
@@ -67,8 +67,8 @@ const Header = () => {
             <li>
               <Image
                 src="/search_icon.svg"
-                width={25}
-                height={25}
+                width={30}
+                height={30}
                 alt="add button"
               ></Image>
             </li>
