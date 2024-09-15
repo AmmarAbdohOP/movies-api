@@ -21,7 +21,8 @@
   max-width: var(--maxPrimaryPageWidth);
   padding: 30px;
   width: 100%;
-  gap: 20px
+
+gap: 20px
 }
 
 .language_button {

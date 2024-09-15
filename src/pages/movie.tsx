@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "@/styles/Pages/Movies/Movies.module.css";
 import MoviesFilters from "@/components/Movies/MoviesFilters";
 import { GetServerSideProps } from "next";
@@ -22,30 +22,109 @@ const Movies: React.FC<MoviesPageProps> = ({
   countries = [],
 }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [currentURL, setCurrentURL] = useState<string>(
+    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1"
+  );
+  const [isLoadMore, setIsLoadMore] = useState<boolean>(false); 
+  const loadMoreTriggerRef = useRef<HTMLDivElement | null>(null); 
 
   useEffect(() => {
     if (popularMovies?.results?.length) {
       setMovies(popularMovies.results);
-      setLoading(false);
     }
   }, [popularMovies]);
+
+  const loadMoreMovies = async () => {
+    setLoading(true);
+
+    try {
+      const newPage = page + 1;
+      setPage(newPage);
+
+      const newURL = `${currentURL}&page=${newPage}`;
+      setCurrentURL(newURL);
+
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+        },
+      };
+
+      const response = await fetch(newURL, options);
+      const data = await response.json();
+
+      if (data?.results?.length) {
+        setMovies((prevMovies) => [...prevMovies, ...data.results]);
+      }
+    } catch (error) {
+      console.error("Error fetching more movies:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && isLoadMore && !loading) {
+          loadMoreMovies();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 1.0, 
+      }
+    );
+
+    if (loadMoreTriggerRef.current) {
+      observer.observe(loadMoreTriggerRef.current);
+    }
+
+    return () => {
+      if (loadMoreTriggerRef.current) {
+        observer.unobserve(loadMoreTriggerRef.current);
+      }
+    };
+  }, [isLoadMore, loading]);
 
   return (
     <div className={styles.movies_page}>
       <div className={styles.movies_wrapper}>
         <section className={styles.filter_section}>
           <h2 className={styles.movies_header}>Popular Movies</h2>
-          <MoviesFilters countries={countries} setMovies={setMovies} />
+          <MoviesFilters
+            countries={countries}
+            setMovies={setMovies}
+            currentURL={currentURL}
+            setCurrentURL={setCurrentURL}
+            setIsLoadMore={setIsLoadMore}
+          />
         </section>
         <section className={styles.popular_movies}>
-          {loading ? (
-            <p>Loading movies...</p>
-          ) : movies ? (
-            movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
-          ) : (
+          {movies.length === 0 ? (
             <p>No movies available</p>
+          ) : (
+            movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
           )}
+
+          {!isLoadMore && (
+            <button
+              className={`button ${styles.load_more_button}`}
+              disabled={loading}
+              onClick={() => setIsLoadMore(true)}
+            >
+              {loading ? "Loading..." : "Load More"}
+            </button>
+          )}
+
+          <div ref={loadMoreTriggerRef} className={styles.load_more_trigger}></div>
+
+          {loading && <h1>Loading more movies...</h1>}
         </section>
       </div>
     </div>

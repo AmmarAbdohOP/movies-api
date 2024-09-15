@@ -19,11 +19,17 @@ interface Country {
 interface MoviesFiltersProps {
   countries: Country[];
   setMovies: (movies: Movie[]) => void;
+  currentURL: string;
+  setCurrentURL: (url: string) => void;
+  setIsLoadMore: (url: boolean) => void;
 }
 
 const MoviesFilters: React.FC<MoviesFiltersProps> = ({
   countries,
   setMovies,
+  currentURL,
+  setCurrentURL,
+  setIsLoadMore
 }) => {
   const countryOptions = countries.map(
     (country) => `${country.english_name}*${country.iso_3166_1}`
@@ -140,11 +146,11 @@ const MoviesFilters: React.FC<MoviesFiltersProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const buildApiUrl = () => {
-    let url = "https://api.themoviedb.org/3/discover/movie?language=en-US";
-
+    let newURL = "https://api.themoviedb.org/3/discover/movie?language=en-US";
+  
     const sortValue = sortFilter.sections[0].value[0];
     let sortByParam = "";
-
+  
     switch (sortValue) {
       case "0":
         sortByParam = "popularity.desc";
@@ -165,35 +171,36 @@ const MoviesFilters: React.FC<MoviesFiltersProps> = ({
         sortByParam = "primary_release_date.asc";
         break;
       case "6":
-        sortByParam = "title.desc";
+        sortByParam = "title.asc";
         break;
       case "7":
-        sortByParam = "title.asc";
+        sortByParam = "title.desc";
         break;
       default:
         sortByParam = "";
         break;
     }
-
+  
     if (sortByParam) {
-      url += `&sort_by=${sortByParam}`;
+      newURL += `&sort_by=${sortByParam}`;
     }
-
+  
     const watchProviders = whereToWatchFilter.sections[1].value;
-
     if (watchProviders && watchProviders.length > 1) {
       const regionCode = watchProviders[0];
       const providersParam = watchProviders.slice(1).join("|");
-      url += `&with_watch_providers=${providersParam}&watch_region=${regionCode}`;
+      newURL += `&with_watch_providers=${providersParam}&watch_region=${regionCode}`;
     }
-    console.log("URL: ", url);
-
-    return url;
+  
+    return newURL;
   };
-
+  
   const fetchFilteredMovies = async () => {
     setIsLoading(true);
+    setIsLoadMore(false);
     const apiUrl = buildApiUrl();
+    setCurrentURL(apiUrl); 
+  
     const options = {
       method: "GET",
       headers: {
@@ -201,10 +208,13 @@ const MoviesFilters: React.FC<MoviesFiltersProps> = ({
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
       },
     };
-
+  
     try {
+      console.log("Fetching from URL: ", apiUrl); 
       const response = await fetch(apiUrl, options);
       const data = await response.json();
+      console.log(data);
+  
       setMovies(data.results);
       setIsButtonDisabled(true);
     } catch (error) {
@@ -213,6 +223,7 @@ const MoviesFilters: React.FC<MoviesFiltersProps> = ({
       setIsLoading(false);
     }
   };
+  
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -231,7 +242,7 @@ const MoviesFilters: React.FC<MoviesFiltersProps> = ({
       <FilterPanel data={whereToWatchFilter} setData={setWhereToWatchFilter} />
       <FilterPanel data={filters} setData={setFilters} />
       <button
-        className={styles.search_button}
+        className={`button ${styles.search_button}`}
         disabled={isButtonDisabled || isLoading}
         onClick={fetchFilteredMovies}
       >

@@ -44,26 +44,6 @@
 }
 
 .search_button {
-  align-items: center;
-  background-color: rgba(1, 180, 228);
-  border: none;
   border-radius: 30px;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  font-size: 1em;
-  font-weight: 600;
-  justify-content: center;
-  padding: 13px;
-  width: 100%;
 }
 
-.search_button:disabled {
-  background-color: rgb(238, 237, 237);
-  color: rgba(0, 0, 0, 0.5);
-  cursor: not-allowed;
-}
-
-.search_button:hover:not(:disabled) {
-  background-color: rgba(3, 37, 65, 1);
-}

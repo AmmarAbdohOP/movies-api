@@ -12,7 +12,7 @@
   padding: 0;
   width: 100vw;
 
-  background-image: radial-gradient(
+background-image: radial-gradient(
     at 30% top,
     #031d33 0%,
     rgba(var(--tmdbDarkBlue), 1) 70%
